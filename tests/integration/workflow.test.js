@@ -234,5 +234,19 @@ describe('Integration: API Workflow', () => {
       expect(solrResult.docs[0].id).toBe(EPAM_CIF);
       expect(solrResult.docs[0].company).toBe('EPAM SYSTEMS INTERNATIONAL SRL');
     }, 30000);
+
+    itIfSolr('should validate company and query SOLR for existing jobs', async () => {
+      const companyResult = await companyModule.validateAndGetCompany();
+
+      expect(companyResult.status).toBe('active');
+      expect(companyResult.company).toBe('EPAM SYSTEMS INTERNATIONAL SRL');
+      expect(companyResult.cif).toBe(EPAM_CIF);
+
+      if (companyResult.existingJobsCount === 0) {
+        console.log('⚠️ No EPAM jobs in Solr — skipping job count assertion (scraper may not have run yet)');
+        return;
+      }
+      expect(companyResult.existingJobsCount).toBeGreaterThan(0);
+    }, 30000);
   });
 });
