@@ -29,7 +29,25 @@ async function getJobs() {
         },
       }
     );
-    const data = await res.json();
+
+    if (!res.ok) {
+      console.log(`⚠️ Peviitor API returned ${res.status} — stopping pagination`);
+      break;
+    }
+
+    let data;
+    try {
+      data = await res.json();
+    } catch {
+      console.log("⚠️ Peviitor API returned non-JSON response — stopping pagination");
+      break;
+    }
+
+    if (data.error || !data.response?.docs) {
+      console.log(`⚠️ Peviitor API: ${data.error || "unexpected format"} — stopping pagination`);
+      break;
+    }
+
     if (data.response.docs.length === 0) break;
     
     jobs.push(...data.response.docs);
