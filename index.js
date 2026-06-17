@@ -343,7 +343,7 @@ async function main() {
         website: ["https://www.epam.com"],
         career: ["https://careers.epam.com"],
         lastScraped: new Date().toISOString().split('T')[0],
-        scraperFile: "https://raw.githubusercontent.com/sebiboga/epam-systems-international-srl-nodejs-scraper/main/.github/workflows/scrape.yml"
+        scraperFile: "https://raw.githubusercontent.com/sebiboga/epam-systems-international-srl-nodejs-scraper/main/.github/workflows/job-seeker-ro-spider.yml"
       });
     } catch (err) {
       console.log(`Note: Could not upsert company to SOLR core: ${err.message}`);

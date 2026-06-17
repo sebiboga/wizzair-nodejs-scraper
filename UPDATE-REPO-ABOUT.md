@@ -6,3 +6,6 @@ web scraper pentru a aduce locurile de munca de la EPAM Romania in platforma pev
 ## Topics (exactly 2, per TOPICS.md)
 - job-seeker-ro-spider
 - peviitor-ro
+
+## Workflow file
+`.github/workflows/job-seeker-ro-spider.yml`

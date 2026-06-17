@@ -1,6 +1,6 @@
 # job_seeker_ro_spider — EPAM Careers Romania Scraper
 
-[![WebScraper EPAM to Peviitor](https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper/actions/workflows/scrape.yml/badge.svg)](https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper/actions/workflows/scrape.yml)
+[![Oportunitati SI Cariere](https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper/actions/workflows/job-seeker-ro-spider.yml/badge.svg)](https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper/actions/workflows/job-seeker-ro-spider.yml)
 [![Automation Tests](https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper/actions/workflows/test.yml/badge.svg)](https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![JavaScript](https://img.shields.io/badge/javascript-ESM-F7DF1E?logo=javascript&logoColor=black)](https://ecma-international.org/)
@@ -37,7 +37,7 @@ Proiectul automatizează colectarea zilnică a job-urilor EPAM din România, men
 │   ├── integration/   # 16 tests (ANAF + SOLR live, Peviitor skipped)
 │   └── e2e/           # 13 tests (full pipeline, real EPAM API)
 ├── .github/workflows/
-│   ├── scrape.yml     # Daily scraping at 6 AM UTC
+│   ├── job-seeker-ro-spider.yml     # Daily scraping at 6 AM UTC
 │   └── test.yml       # Automation Tests on push/PR
 └── package.json
 ```
@@ -91,7 +91,7 @@ npm run test:e2e
 
 ### Daily Scraping
 
-The `scrape.yml` workflow runs daily at 6 AM UTC via GitHub Actions. It:
+The `job-seeker-ro-spider.yml` workflow runs daily at 6 AM UTC via GitHub Actions. It:
 1. Validates company data via ANAF
 2. Scrapes current job listings from EPAM Careers
 3. Updates Solr with new/removed jobs

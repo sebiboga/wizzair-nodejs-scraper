@@ -23,14 +23,20 @@ NEVER use paths outside the project (e.g. `C:\Users\...\AppData\Local\Temp\openc
 
 ### 4. Testing
 ```bash
-# Unit tests (no env vars needed)
+# All tests
 npm test
 
+# Unit tests (no env vars needed)
+npm run test:unit
+
 # Integration tests (ANAF public API, SOLR conditional)
-node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=integration --testTimeout=60000
+npm run test:integration
 
 # E2E tests (real EPAM API, SOLR conditional)
-node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=e2e --testTimeout=60000
+npm run test:e2e
+
+# Consistency tests (GitHub repo config — needs GITHUB_REPOSITORY + GITHUB_TOKEN)
+npm run test:consistency
 ```
 
 ### 5. ESM + Jest

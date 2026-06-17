@@ -19,7 +19,7 @@ Pentru fiecare workflow din `.github/workflows/`:
 
 | Workflow | Trigger | Ce verifici |
 |----------|---------|-------------|
-| `scrape.yml` | `workflow_dispatch` | Rulează scraperul → jobs in SOLR |
+| `job-seeker-ro-spider.yml` | `workflow_dispatch` | Rulează scraperul → jobs in SOLR |
 | `test.yml` | `workflow_dispatch` | Toate testele + validare job-uri + company core |
 | `deploy.yml` | Push pe `main` | GitHub Pages se updat ează |
 
@@ -33,7 +33,7 @@ Pentru fiecare workflow din `.github/workflows/`:
 
 ## 3. Rulează scraperul prin GitHub Actions (ultimul pas)
 
-1. Mergi la **Actions** → **WebScraper ... to Peviitor** (`scrape.yml`)
+1. Mergi la **Actions** → **Oportunitati SI Cariere** (`job-seeker-ro-spider.yml`)
 2. Apasă **Run workflow** → lasă `main`
 3. Așteaptă să se termine
 4. Verifică în SOLR că job-urile companiei apar:

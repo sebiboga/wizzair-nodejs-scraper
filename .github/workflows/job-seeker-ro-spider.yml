@@ -1,4 +1,4 @@
-name: Scrape EPAM Jobs
+name: Oportunitati SI Cariere
 
 on:
   schedule:

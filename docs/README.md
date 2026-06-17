@@ -38,7 +38,7 @@ job_seeker_ro_spider
 │   ├── integration/   # 16 teste de integrare (ANAF + SOLR live)
 │   └── e2e/           # 13 teste end-to-end (pipelin complet)
 └── .github/workflows/
-    ├── scrape.yml     # Rulează zilnic la 6 AM UTC
+    ├── job-seeker-ro-spider.yml     # Rulează zilnic la 6 AM UTC
     └── test.yml       # Teste automate la fiecare push/PR
 ```
 
