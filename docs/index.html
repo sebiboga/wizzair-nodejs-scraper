@@ -244,7 +244,7 @@
     <div class="logo">
       <a href="https://peviitor.ro/" target="_blank">peviitor</a>
     </div>
-<a href="https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper/blob/master/docs/README.md" target="_blank">Documentație</a>
+    <a href="https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper/blob/main/docs/README.md" target="_blank">Documentație</a>
   </header>
 
   <div class="container">
@@ -275,10 +275,10 @@
         <div class="features">
           <h3>Ce face acest scraper:</h3>
           <ul>
-            <li>Extrage job-uri de pe EPAM Careers</li>
-            <li>Verifică cu Puppeteer (JavaScript)</li>
-            <li>Extrage tags și skills</li>
+            <li>Extrage job-uri de pe EPAM Careers API</li>
+            <li>Parsează cu fetch (JSON API)</li>
             <li>Validează compania via ANAF</li>
+            <li>Verifică și elimină job-uri expirate</li>
             <li>Salvează în SOLR pentru peviitor.ro</li>
           </ul>
         </div>
@@ -302,23 +302,26 @@
 
   <footer class="footer">
     <a href="https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper" target="_blank">GitHub</a> •
-    <a href="https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper/blob/master/docs/README.md" target="_blank">Documentație</a> •
+    <a href="https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper/blob/main/docs/README.md" target="_blank">Documentație</a> •
     <a href="https://peviitor.ro/" target="_blank">peviitor.ro</a>
   </footer>
 
   <script>
+    const COMPANY = "EPAM SYSTEMS INTERNATIONAL SRL";
+    const COMPANY_CIF = "33159615";
+    const COMPANY_LOGO = "EPAM";
+
     async function loadStats() {
       try {
-        const res = await fetch('https://api.peviitor.ro/v1/search/?company=EPAM%20SYSTEMS%20INTERNATIONAL%20SRL&page=1', {
+        const res = await fetch(`https://api.peviitor.ro/v1/search/?company=${encodeURIComponent(COMPANY)}&page=1`, {
           headers: {
             'origin': 'https://peviitor.ro',
             'referer': 'https://peviitor.ro/'
           }
         });
         const data = await res.json();
-        document.getElementById('jobsCount').textContent = data.response.numFound;
         
-        const vRes = await fetch('https://api.peviitor.ro/v1/search/?company=EPAM%20SYSTEMS%20INTERNATIONAL%20SRL&status=verified&page=1', {
+        const vRes = await fetch(`https://api.peviitor.ro/v1/search/?company=${encodeURIComponent(COMPANY)}&status=verified&page=1`, {
           headers: {
             'origin': 'https://peviitor.ro',
             'referer': 'https://peviitor.ro/'
@@ -338,8 +341,9 @@
         
         let page = 1;
         let moreJobs = true;
+        let ourJobCount = 0;
         while (moreJobs) {
-          const jobsRes = await fetch(`https://api.peviitor.ro/v1/search/?company=EPAM%20SYSTEMS%20INTERNATIONAL%20SRL&page=${page}`, {
+          const jobsRes = await fetch(`https://api.peviitor.ro/v1/search/?company=${encodeURIComponent(COMPANY)}&page=${page}`, {
             headers: {
               'origin': 'https://peviitor.ro',
               'referer': 'https://peviitor.ro/'
@@ -350,15 +354,26 @@
             moreJobs = false;
           } else {
             jobsData.response.docs.forEach(job => {
+              if (job.cif !== COMPANY_CIF) return;
+              ourJobCount++;
               const li = document.createElement('li');
-              li.innerHTML = `<a href="${job.url}" target="_blank">${job.job_title}</a>`;
+              const location = Array.isArray(job.location) ? job.location.join(', ') : '';
+              const workmode = job.workmode || '';
+              li.innerHTML = `
+                <a href="${job.url}" target="_blank">${job.title}</a>
+                <div class="job-meta">
+                  ${location ? `<span>📍 ${location}</span>` : ''}
+                  ${workmode ? `<span>💼 ${workmode}</span>` : ''}
+                </div>
+              `;
               jobsList.appendChild(li);
             });
             page++;
           }
         }
+        document.getElementById('jobsCount').textContent = ourJobCount;
         
-        const cRes = await fetch('https://api.peviitor.ro/v1/company/?cif=33159615', {
+        const cRes = await fetch(`https://api.peviitor.ro/v1/company/?cif=${COMPANY_CIF}`, {
           headers: {
             'origin': 'https://peviitor.ro',
             'referer': 'https://peviitor.ro/'
@@ -366,22 +381,26 @@
         });
         const cData = await cRes.json();
         const comp = cData.company;
-        const detailsDiv = document.querySelector('.company-details');
-        detailsDiv.innerHTML = `
-          <div class="detail-item"><strong>CIF:</strong> ${comp.id}</div>
-          <div class="detail-item"><strong>Brand:</strong> ${comp.brand}</div>
-          <div class="detail-item"><strong>Status:</strong> ${comp.status}</div>
-          <div class="detail-item"><strong>Orașe:</strong> ${comp.location.join(', ')}</div>
-          <div class="detail-item"><strong>Website:</strong> <a href="${comp.website[0]}" target="_blank">${comp.website[0]}</a></div>
-          <div class="detail-item"><strong>Career:</strong> <a href="${comp.career[0]}" target="_blank">${comp.career[0]}</a></div>
-          <div class="detail-item"><strong>Ultimul scrape:</strong> ${comp.lastScraped}</div>
-        `;
+        if (comp) {
+          const detailsDiv = document.querySelector('.company-details');
+          detailsDiv.innerHTML = `
+            <div class="detail-item"><strong>CIF:</strong> ${comp.id}</div>
+            <div class="detail-item"><strong>Brand:</strong> ${comp.brand}</div>
+            <div class="detail-item"><strong>Status:</strong> ${comp.status}</div>
+            <div class="detail-item"><strong>Orașe:</strong> ${(comp.location || []).join(', ')}</div>
+            <div class="detail-item"><strong>Website:</strong> <a href="${(comp.website || [])[0] || '#'}" target="_blank">${(comp.website || [])[0] || '—'}</a></div>
+            <div class="detail-item"><strong>Career:</strong> <a href="${(comp.career || [])[0] || '#'}" target="_blank">${(comp.career || [])[0] || '—'}</a></div>
+            <div class="detail-item"><strong>Ultimul scrape:</strong> ${comp.lastScraped || '—'}</div>
+          `;
+        }
       } catch(e) {
-        document.getElementById('jobsCount').textContent = '88';
-        document.getElementById('verifiedCount').textContent = '88';
+        console.error('Failed to load stats:', e);
+        document.getElementById('jobsCount').textContent = '?';
+        document.getElementById('verifiedCount').textContent = '?';
         const now = new Date();
         document.getElementById('lastRunTime').textContent = now.toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit' });
         document.getElementById('lastRunDate').textContent = now.toLocaleDateString('ro-RO', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        document.getElementById('jobsListContent').innerHTML = '<li style="color:#999;">Nu s-au putut încărca job-urile. Pagina se actualizează automat la fiecare 30s.</li>';
       }
     }
     loadStats();

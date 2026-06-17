@@ -26,7 +26,7 @@ Pentru fiecare workflow din `.github/workflows/`:
 ### Cum verifici:
 
 1. Mergi pe GitHub → Actions → selectează workflow-ul
-2. Apasă **Run workflow** (pe `main`/`master`)
+2. Apasă **Run workflow** (pe `main`)
 3. Așteaptă să se termine
 4. Verifică că toate job-urile sunt **green (PASS)**
 5. Dacă un job eșuează → oprește-te, repară, reîncepe de la pasul 1
@@ -34,7 +34,7 @@ Pentru fiecare workflow din `.github/workflows/`:
 ## 3. Rulează scraperul prin GitHub Actions (ultimul pas)
 
 1. Mergi la **Actions** → **WebScraper ... to Peviitor** (`scrape.yml`)
-2. Apasă **Run workflow** → lasă `main`/`master`
+2. Apasă **Run workflow** → lasă `main`
 3. Așteaptă să se termine
 4. Verifică în SOLR că job-urile companiei apar:
    ```bash

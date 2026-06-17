@@ -1,4 +1,4 @@
-name: WebScraper EPAM to Peviitor
+name: Scrape EPAM Jobs
 
 on:
   schedule:
