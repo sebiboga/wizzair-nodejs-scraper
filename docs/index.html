@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="pageTitle">EPAM — locuri de muncă — peviitor.ro</title>
+  <title data-i18n="pageTitle">Locuri de muncă — peviitor.ro</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -247,7 +247,7 @@
     <a href="https://peviitor.ro" target="_blank" class="logo-link">
       <img src="https://peviitor.ro/assets/logo-DV2JQkir.svg" alt="peviitor" class="logo-img">
     </a>
-    <h1 data-i18n="pageTitle">EPAM — locuri de muncă</h1>
+    <h1 data-i18n="pageTitle">Locuri de muncă</h1>
     <p data-i18n="subtitle">Scraper automat pentru locurile de muncă EPAM Romania</p>
 
     <div style="margin: 15px 0; display:flex; flex-wrap:wrap; gap:8px; justify-content:center;">
@@ -363,7 +363,7 @@ const i18n = {
     testResults: "Test Results",
   },
   ro: {
-    pageTitle: "EPAM — locuri de muncă — peviitor.ro",
+    pageTitle: "Locuri de muncă — peviitor.ro",
     subtitle: "Scraper automat pentru locurile de muncă EPAM Romania",
     jobsLabel: "Locuri de muncă",
     verifiedLabel: "Verificate",
@@ -418,6 +418,14 @@ async function loadStats() {
         <div class="company-item"><strong>Career:</strong> <a href="${(comp.career || [])[0] || "#"}" target="_blank">${(comp.career || [])[0] || "—"}</a></div>
         <div class="company-item"><strong>Ultimul scrape:</strong> ${comp.lastScraped || "—"}</div>
       `;
+
+      const lang = document.documentElement.lang;
+      const companyName = comp.company || COMPANY;
+      if (lang === "ro") {
+        const roTitle = `Locuri de muncă de la ${companyName} — peviitor.ro`;
+        document.title = roTitle;
+        document.querySelector("h1[data-i18n='pageTitle']").textContent = `Locuri de muncă de la ${companyName}`;
+      }
     }
   } catch (e) {
     console.error("Company load failed:", e);
