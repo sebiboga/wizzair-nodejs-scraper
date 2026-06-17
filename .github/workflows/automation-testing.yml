@@ -105,6 +105,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Sync with remote
+        run: git pull origin main --rebase -X theirs
+
       - name: Run Unit Tests
         run: |
           npm run test:unit
@@ -172,7 +175,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull origin main --rebase -X theirs --autostash
           git add docs/test-results/
           git commit -m "[skip ci] Update test results" || echo "No changes to commit"
-          git push
+          git push || echo "Push failed (race condition) — will be picked up next run"
