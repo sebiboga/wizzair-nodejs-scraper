@@ -21,6 +21,7 @@
 > - [mejix-srl-nodejs-scraper](https://github.com/sebiboga/mejix-srl-nodejs-scraper) — MEJIX S.R.L. (HTML/cheerio, single-page)
 > - [talent-matchmakers-srl-nodejs-scraper](https://github.com/sebiboga/talent-matchmakers-srl-nodejs-scraper) — TALENT MATCHMAKERS S.R.L. (Teamtailor HTML/cheerio)
 > - [artsoft-consult-srl-nodejs-scraper](https://github.com/sebiboga/artsoft-consult-srl-nodejs-scraper) — ARTSOFT CONSULT SRL (HTML scraping/cheerio)
+> - [axon-soft-srl-nodejs-scraper](https://github.com/sebiboga/axon-soft-srl-nodejs-scraper) — AXON SOFT SRL (WordPress HTML/cheerio)
 > - [continental-hotels-srl-nodejs-scraper](https://github.com/sebiboga/continental-hotels-srl-nodejs-scraper) — CONTINENTAL HOTELS SA (POST AJAX → HTML/cheerio)
 > - [coera-bc-srl-nodejs-scraper](https://github.com/sebiboga/coera-bc-srl-nodejs-scraper) — COERA BC SRL (HTML/cheerio, single-page)
 > - [rapel-srl-nodejs-scraper](https://github.com/sebiboga/rapel-srl-nodejs-scraper) — RAPEL SRL (jobRapid.ro HTML/cheerio + ANOFM API)
@@ -177,6 +178,7 @@ Acest template a fost folosit cu succes pentru a deriva scraper-e pentru alte co
 | [talent-matchmakers-srl-nodejs-scraper](https://github.com/sebiboga/talent-matchmakers-srl-nodejs-scraper) | TALENT MATCHMAKERS S.R.L. | 38460545 | Teamtailor HTML (cheerio) | ✅ Live |
 | [artsoft-consult-srl-nodejs-scraper](https://github.com/sebiboga/artsoft-consult-srl-nodejs-scraper) | ARTSOFT CONSULT SRL | 15997630 | HTML scraping (cheerio) | ✅ Live |
 | [rapel-srl-nodejs-scraper](https://github.com/sebiboga/rapel-srl-nodejs-scraper) | RAPEL SRL | 5665609 | jobRapid.ro HTML (cheerio) | ✅ Live |
+| [axon-soft-srl-nodejs-scraper](https://github.com/sebiboga/axon-soft-srl-nodejs-scraper) | AXON SOFT SRL | 13049596 | WordPress HTML (cheerio) | ✅ Live |
 | [continental-hotels-srl-nodejs-scraper](https://github.com/sebiboga/continental-hotels-srl-nodejs-scraper) | CONTINENTAL HOTELS SA | 1559737 | POST AJAX → HTML (cheerio) | ✅ Live |
 | [coera-bc-srl-nodejs-scraper](https://github.com/sebiboga/coera-bc-srl-nodejs-scraper) | COERA BC SRL | 32519996 | HTML scraping (cheerio) | ✅ Live |
 | [sennder-bucharest-srl-nodejs-scraper](https://github.com/sebiboga/sennder-bucharest-srl-nodejs-scraper) | SENNDER BUCHAREST S.R.L. | 45780151 | Gem ATS API (JSON fetch) | ✅ Live |
